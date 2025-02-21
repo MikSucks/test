@@ -1,1 +1,1 @@
-Pääsovellus on verkkosivu:kauppa.html
+Pääsovellus on verkkosivu_kauppa.html
