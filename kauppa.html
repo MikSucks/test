@@ -1,0 +1,60 @@
+
+<!DOCTYPE html>
+<html lang="fi">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Kauppa</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <div class="logo-container">
+        <img src="kenkakauppa.jpg" alt="Kenkäkaupan logo" class="logo">
+    </div>
+    <div class="header">
+        <a href="etusivu.html">Etusivu</a>
+        <a href="kauppa.html">Kauppa</a>
+        <a href="ostoskori.html">Ostoskori</a>
+        <a href="tietoja_meista.html">Tietoja meistä</a>
+    </div>
+
+    <h1>Kauppa</h1>
+
+    <div class="product">
+        <img src="tohvelit.png" alt="Tohvelit">
+        <h2>Tohvelit</h2>
+        <p>Hinta: 20€</p>
+        <button onclick="lisaaOstoskoriin('Tohvelit', 20)">Lisää ostoskoriin</button>
+    </div>
+
+    <div class="product">
+        <img src="puukengat.png" alt="Puukengät">
+        <h2>Puukengät</h2>
+        <p>Hinta: 35€</p>
+        <button onclick="lisaaOstoskoriin('Puukengät', 35)">Lisää ostoskoriin</button>
+    </div>
+
+
+<script>
+    function lisaaOstoskoriin(nimi, hinta) {
+        let ostoskori = JSON.parse(localStorage.getItem("ostoskori")) || [];
+
+        let olemassaOlevaTuote = ostoskori.find(t => t.nimi === nimi);
+        if (olemassaOlevaTuote) {
+            olemassaOlevaTuote.maara += 1;
+        } else {
+            ostoskori.push({ nimi: nimi, hinta: Number(hinta), maara: 1 });
+        }
+
+        localStorage.setItem("ostoskori", JSON.stringify(ostoskori));
+    }
+</script>
+
+        
+</body>
+</html>
+
+
+
+
+

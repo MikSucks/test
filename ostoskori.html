@@ -1,0 +1,70 @@
+
+
+<!DOCTYPE html>
+<html lang="fi">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Ostoskori</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <div class="logo-container">
+        <img src="kenkakauppa.jpg" alt="Kenkäkaupan logo" class="logo">
+    </div>
+    <div class="header">
+        <a href="etusivu.html">Etusivu</a>
+        <a href="kauppa.html">Kauppa</a>
+        <a href="ostoskori.html">Ostoskori</a>
+        <a href="tietoja_meista.html">Tietoja meistä</a>
+    </div>
+
+    <h1>Ostoskori</h1>
+
+    <div class="cart-container" id="cart-container">
+        
+    </div>
+
+    <p class="cart-total" id="cart-total">Yhteensä: 0€</p>
+
+    <button onclick="tyhjennaOstoskori()" class="clear-cart-button">Tyhjennä ostoskori</button>
+
+    <script>
+        let ostoskori = JSON.parse(localStorage.getItem("ostoskori")) || [];
+
+        function paivitaOstoskori() {
+            let cartContainer = document.getElementById("cart-container");
+            let totalElement = document.getElementById("cart-total");
+
+            cartContainer.innerHTML = "";
+            let yhteensa = 0;
+
+            ostoskori.forEach((tuote, index) => {
+                let rivi = document.createElement("div");
+                rivi.classList.add("cart-item");
+                rivi.innerHTML = `
+                    <span class="cart-quantity">${tuote.maara}x</span>
+                    <span class="cart-name">${tuote.nimi}</span>
+                    <span class="cart-price">${(tuote.hinta * tuote.maara).toFixed(2)}€</span>
+                `;
+
+                yhteensa += tuote.hinta * tuote.maara;
+                cartContainer.appendChild(rivi);
+            });
+
+            totalElement.textContent = `Yhteensä: ${yhteensa.toFixed(2)}€`;
+
+            localStorage.setItem("ostoskori", JSON.stringify(ostoskori));
+        }
+
+        function tyhjennaOstoskori() {
+            ostoskori = [];
+            localStorage.removeItem("ostoskori");
+            paivitaOstoskori();
+        }
+
+        paivitaOstoskori();
+    </script>
+
+</body>
+</html>
